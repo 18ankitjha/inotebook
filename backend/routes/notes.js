@@ -51,35 +51,68 @@ router.post('/addnote', fetchuser,
 
     })
 
-//Route 3:update all notes using post of user logged in
+//Route 3:update  notes using put of user logged in using id of the note
 router.put('/updatenote/:id', fetchuser,
     async (req, res) => {
-        const { title, description, tag } = req.body;
-        const newNote = {}
-        if (title) {
-            newNote.title = title
+        try {
+            const { title, description, tag } = req.body;
+            const newNote = {}
+            if (title) {
+                newNote.title = title
+            }
+            if (description) {
+                newNote.description = description
+            }
+            if (tag) {
+                newNote.tag = tag
+            }
+            //find note to be updated and update
+            let note = await Notes.findById(req.params.id);
+            if (!note) {
+                return res.status(404).send("Not Found")
+            }
+            console.log(req.params.id,note.user)
+            if (note.user.toString() !== req.user.id) {
+                return res.status(401).send("Not allowed")
+            }
+    
+            //now update the note with newNote
+            
+            note=await Notes.findByIdAndUpdate(req.params.id,{$set:newNote},{new:true})
+            res.json({note})
+        } catch (error) {
+            console.error(error.message);
+            res.status(500).send("Some Internal error occured")
         }
-        if (description) {
-            newNote.description = description
-        }
-        if (tag) {
-            newNote.tag = tag
-        }
-        //find note to be updated and update
-        let note = await Notes.findById(req.params.id);
-        if (!note) {
-            return res.status(404).send("Not Found")
-        }
-        console.log(req.params.id,note.user)
-        if (note.user.toString() !== req.user.id) {
-            return res.status(401).send("Not allowed")
-        }
-
-        //now update the note with newNote
         
-        note=await Notes.findByIdAndUpdate(req.params.id,{$set:newNote},{new:true})
-        res.json({note})
 
+    })
+//Route 3:delete  note using put of user logged in using id of the note
+router.delete('/deletenote/:id', fetchuser,
+    async (req, res) => {
+    
+        try {
+            let note = await Notes.findById(req.params.id);
+            if (!note) {
+                return res.status(404).send("Not Found")
+            }
+            if (note.user.toString() !== req.user.id) {
+                return res.status(401).send("Not allowed")
+            }
+            // console.log(req.params.id,note.user)
+    
+    
+            //now update the note with newNote
+            
+            note=await Notes.findByIdAndDelete(req.params.id)
+            res.json({"Success":"Notes has been delete",note:note})
+     
+        } catch (error) {
+            console.error(error.message);
+            res.status(500).send("Some Internal error occured")
+        }
+        //find note to be deleted and delete it
+        
     })
 
 module.exports = router
