@@ -71,7 +71,7 @@ router.put('/updatenote/:id', fetchuser,
             if (!note) {
                 return res.status(404).send("Not Found")
             }
-            console.log(req.params.id,note.user)
+            // console.log(req.params.id,note.user)
             if (note.user.toString() !== req.user.id) {
                 return res.status(401).send("Not allowed")
             }
