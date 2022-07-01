@@ -6,10 +6,11 @@ const AddNote = () => {
     const context = useContext(NoteContext)
     const { addNote } = context
 
-    const [Note, setNote] = useState({ title: "", description: "", tag:"default" })
+    const [Note, setNote] = useState({ title: "", description: "", tag:"" })
     const handleClick = (e) => {
         e.preventDefault();
         addNote(Note.title,Note.description,Note.tag)
+        setNote({title: "", description: "", tag:""})
     }
     const onchange = (e) => {
         setNote({...Note,[e.target.name]:e.target.value})
@@ -20,7 +21,7 @@ const AddNote = () => {
             <form className='my-3'>
                 <div className="form-group">
                     <label htmlFor="title">Title</label>
-                    <input type="text" className="form-control" id="title" name='title' aria-describedby="emailHelp" placeholder="Enter Title" onChange={onchange} />
+                    <input type="text" className="form-control" id="title" name='title' aria-describedby="emailHelp" placeholder="Enter Title" value={Note.title} onChange={onchange} minLength={5} required/>
 
                 </div>
 
@@ -28,18 +29,18 @@ const AddNote = () => {
                     <label htmlFor="description">Description</label>
                     <input type="text" className="form-control" id="description"
                         name='description'
-                        placeholder="Enter description" onChange={onchange} />
+                        placeholder="Enter description"  value={Note.description} onChange={onchange} minLength={5} required/>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="tag">Description</label>
+                    <label htmlFor="tag">Tag</label>
                     <input type="text" className="form-control" id="tag"
                         name='tag'
-                        placeholder="Enter tag" onChange={onchange} />
+                        placeholder="Enter tag" value={Note.tag} onChange={onchange} minLength={5} required/>
                 </div>
 
                 
 
-                <button type="submit" className="btn btn-primary" onClick={handleClick}>Add Note</button>
+                <button type="submit" className="btn btn-primary" disabled={Note.title.length<5 || Note.description.length<5} onClick={handleClick}>Add Note</button>
             </form>
             <h2>Your Notes</h2>
         </div>
