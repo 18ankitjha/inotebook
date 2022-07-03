@@ -1,5 +1,10 @@
 const mongoose=require('mongoose');
-const mongoURI="mongodb://localhost:27017/inotebook?readPreference=primary&directConnection=true&ssl=false"
+
+require('dotenv').config();
+const mongoURI=process.env.DB_URI
+
+
+
 const connectToMongo=()=>{
     mongoose.connect(mongoURI,()=>{
         console.log("connected successfully");

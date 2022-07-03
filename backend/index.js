@@ -5,6 +5,7 @@ var cors = require('cors')
 const app = express()
 app.use(cors())
 const port = 5000
+require('dotenv').config();
 
 app.use(express.json())
 app.use('/api/auth',require('./routes/auth'))
