@@ -1,4 +1,4 @@
-const { default: userEvent } = require("@testing-library/user-event");
+
 const express = require("express");
 const router = express.Router();
 const User = require('../models/User');
