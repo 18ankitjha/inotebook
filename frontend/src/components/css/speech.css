@@ -1,0 +1,9 @@
+.speech{
+    cursor: pointer;
+    border: 0px solid #ccc;
+    border-radius: 50%;
+    /* background-color: rgb(104, 139, 164); */
+}
+.speech:hover{
+    /* background-color: rgb(135, 135, 190); */
+}
