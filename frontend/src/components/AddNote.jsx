@@ -51,7 +51,7 @@ const AddNote = (props) => {
           <label htmlFor="title">Title</label>
           <input
             type="text"
-            className="form-control"
+            className="form-control position-relative"
             id="title"
             name="title"
             aria-describedby="emailHelp"

@@ -2,8 +2,12 @@
     cursor: pointer;
     border: 0px solid #ccc;
     border-radius: 50%;
-    /* background-color: rgb(104, 139, 164); */
+    color: grey;
+    /* font-size: large; */
+    
 }
 .speech:hover{
-    /* background-color: rgb(135, 135, 190); */
+    /* font-size: larger; */
+    font-weight: bolder;
+    color: blue;
 }
