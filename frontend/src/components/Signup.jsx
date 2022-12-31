@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
+const host="https://inotebook-backend-5w3y.onrender.com"
 const Signup = (props) => {
     const [credentials, setCredentials] = useState({
        name:"", email:"", password: "",cpassword:""
@@ -10,7 +11,7 @@ const Signup = (props) => {
     let history=useNavigate()
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch(`http://localhost:5000/api/auth/createUser`, {
+        const response = await fetch(`${host}/api/auth/createUser`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
